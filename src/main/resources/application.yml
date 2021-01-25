@@ -6,7 +6,7 @@ server:
 spring:
     datasource:
       password: password
-      url: jdbc:postgresql://localhost:5432/userregistration
+      url: jdbc:postgresql://docker-postgres:5432/userregistration
       username: root
     jpa:
       hibernate:
