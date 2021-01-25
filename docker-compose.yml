@@ -11,3 +11,21 @@ services:
       - POSTGRES_DB=userregistration
     volumes:
     - "C:/Users/My Dell/Desktop/PostgreSQLDb:/var/lib/postgresql/data"
+  maildev:
+    image: maildev/maildev
+    ports:
+      - 1080:80
+      - 1025:25
+  springboot-docker-app:
+    image: my-spring-app
+    depends_on:
+      - docker-postgres
+      - maildev
+    ports:
+      - 8080:8080
+    environment:
+      - DATABASE_HOST=docker-postgres
+      - DATABASE_USER=root
+      - DATABASE_PASSWORD=password
+      - DATABASE_NAME=userregistration
+      - DATABASE_PORT=5432
