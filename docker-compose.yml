@@ -14,8 +14,8 @@ services:
   maildev:
     image: maildev/maildev
     ports:
-      - 1080:1080
-      - 1025:1025
+      - 1080:80
+      - 1025:25
   springboot-docker-app:
     image: my-spring-app
     depends_on:
