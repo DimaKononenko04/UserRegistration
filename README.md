@@ -1,5 +1,5 @@
 # UserRegistration
-Project simulates user registration and log in
+Project simulates user registration and log in.
 To quickly spin-up a project do the following:
 1. Install Docker desktop and run it
 2. open terminal and cd into project directory
