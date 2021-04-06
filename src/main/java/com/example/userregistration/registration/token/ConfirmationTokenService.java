@@ -22,7 +22,9 @@ public class ConfirmationTokenService {
 
     public void setConfirmedAt(String token) {
         Optional<ConfirmationToken> byToken = confirmationTokenRepository.findByToken(token);
-        byToken.ifPresent(confirmationToken -> confirmationToken.setConfirmedAt(LocalDateTime.now()));
-        confirmationTokenRepository.save(byToken.get());
+        byToken.ifPresent(confirmationToken -> {
+            confirmationToken.setConfirmedAt(LocalDateTime.now());
+            confirmationTokenRepository.save(byToken.get());
+        });
     }
 }

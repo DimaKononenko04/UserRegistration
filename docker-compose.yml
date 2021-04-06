@@ -10,14 +10,14 @@ services:
       - POSTGRES_USER=root
       - POSTGRES_DB=userregistration
     volumes:
-    - "C:/Users/My Dell/Desktop/PostgreSQLDb:/var/lib/postgresql/data"
+    - "C:/Users/Dmytro_Kononenko1/Desktop/PostgreSQLDb:/var/lib/postgresql/data"
   maildev:
     image: maildev/maildev
     ports:
       - 1080:80
       - 1025:25
   springboot-docker-app:
-    image: my-spring-app
+    image: my-spring-app-v2
     depends_on:
       - docker-postgres
       - maildev

@@ -17,7 +17,7 @@ import java.util.UUID;
 @AllArgsConstructor
 public class AppUserService implements UserDetailsService {
 
-    private final static String USER_NOT_FOUND_MSG = "User with email %s not found";
+    private final String USER_NOT_FOUND_MSG = "User with email %s not found";
     private final AppUserRepository appUserRepository;
     private final BCryptPasswordEncoder bCryptPasswordEncoder;
     private final ConfirmationTokenService confirmationTokenService;
@@ -25,7 +25,7 @@ public class AppUserService implements UserDetailsService {
     @Override
     public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
         return appUserRepository.findByEmail(email)
-                .orElseThrow(() -> new UsernameNotFoundException(String.format(USER_NOT_FOUND_MSG,email)));
+                .orElseThrow(() -> new UsernameNotFoundException(String.format(USER_NOT_FOUND_MSG, email)));
     }
 
     public String singUpUser(AppUser appUser) {
@@ -34,7 +34,6 @@ public class AppUserService implements UserDetailsService {
             //TODO: if email not confirmed send confirmation email
             throw new IllegalStateException("Email already taken");
         }
-
 
         String encodedPassword = bCryptPasswordEncoder.encode(appUser.getPassword());
 
@@ -60,7 +59,9 @@ public class AppUserService implements UserDetailsService {
 
     public void enableAppUser(String email) {
         Optional<AppUser> byEmail = appUserRepository.findByEmail(email);
-        byEmail.ifPresent(appUser -> appUser.setEnabled(true));
-        appUserRepository.save(byEmail.get());
+        byEmail.ifPresent(appUser -> {
+            appUser.setEnabled(true);
+            appUserRepository.save(byEmail.get());
+        });
     }
 }
